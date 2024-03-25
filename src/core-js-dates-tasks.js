@@ -256,31 +256,13 @@ function getCountWeekendsInMonth(month, year) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(/* date */) {
-  throw new Error('Not implemented');
-  // const allWeek = 7;
-  // const oneDay = 24 * 60 * 60 * 1000;
-  // const oneWeek = 24 * 60 * 60 * 1000 * 7;
-  // const year = new Date(date).getFullYear();
-  // const startYear = new Date(year, 0, 1);
-  // const weekDayStart = startYear.getDay();
-  // const parseYear = Date.parse(startYear);
-  // // console.log(startYear);
-  // const currentDay = Date.parse(date);
-  // let test = allWeek - weekDayStart;
-  // // console.log(currentDay);
-  // // const result = Math.floor((currentDay - (parseYear - (oneDay * weekDayStart))) / oneWeek + 1)
-  // // return result;
-  // console.log('currentDay: ' + currentDay);
-  // console.log('parseYear: ' + parseYear);
-  // console.log('test: ' + test);
-  // console.log('oneDay: ' + oneDay);
-  // console.log('oneWeek: ' + oneWeek);
-  // console.log((currentDay - (parseYear - test * oneDay)) / oneWeek);
-  // let res = (currentDay - (parseYear - test * oneDay)) / oneWeek;
-  // console.log(Math.ceil(res + 0.3));
-  // const result = Math.ceil((currentDay - (parseYear 2 (test * oneDay) / oneWeek)))
-  // return result
+function getWeekNumberByDate(date) {
+  const startOfYear = new Date(date.getFullYear(), 0, 0);
+  const getDay = startOfYear.getDay();
+  const diff = date - startOfYear;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const weekOfYear = Math.ceil((diff / oneDay + getDay) / 7);
+  return weekOfYear;
 }
 
 /**
@@ -294,8 +276,17 @@ function getWeekNumberByDate(/* date */) {
  * Date(2024, 0, 13) => Date(2024, 8, 13)
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
-function getNextFridayThe13th(/* date */) {
-  throw new Error('Not implemented');
+function getNextFridayThe13th(date) {
+  let result;
+  for (let i = 1; i < 365; i += 1) {
+    const day = new Date(date.getFullYear(), 0, i);
+    const getDate = day.getDate();
+    if (getDate === 13 && String(day).startsWith('Fri')) {
+      result = day;
+      break;
+    }
+  }
+  return result;
 }
 
 /**
